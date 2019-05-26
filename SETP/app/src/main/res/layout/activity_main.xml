@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFF"
+    android:id="@+id/mainAct"
+    tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="33dp"
+            android:layout_height="327dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_marginLeft="10dp"
+
+            >
+
+            <Button
+                android:id="@+id/seat11"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="11"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat10"
+                android:layout_width="30dp"
+                android:layout_height="28dp"
+                android:background="@drawable/imgbtn1"
+                android:text="10"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat9"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="9"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/seat8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="8"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat7"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="7"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat6"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="6"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="4"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="5"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="3"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="2"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="1"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_toRightOf="@id/linearLayout"
+        android:layout_marginLeft="1dp"
+
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/seat18"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="18"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat14"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="14"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat19"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="19"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat12"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="12"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat17"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="17"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat16"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="16"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat15"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="15"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat13"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="13"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="35dp"
+        android:orientation="horizontal"
+
+
+        >
+
+
+        <Button
+            android:id="@+id/seat20"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="20"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat21"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="21"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat22"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="22"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat23"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="23"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat24"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="24"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat25"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="25"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat26"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="26"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat27"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="27"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat28"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="28"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat29"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="29"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat30"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="30"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat31"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="31"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="62dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/linearLayout2"
+
+        android:layout_alignLeft="@id/linearLayout3"
+>
+
+        <Button
+            android:id="@+id/seat33"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="33"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat32"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="32"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="250dp"
+        android:layout_height="71dp"
+        android:layout_alignRight="@id/linearLayout2"
+        android:layout_alignTop="@id/linearLayout5"
+        android:orientation="vertical"
+       >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/seat34"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="34"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat35"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="35"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat36"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="36"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat37"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="37"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat38"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="38"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat39"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="39"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat40"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="40"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat41"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="41"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/seat42"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="42"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat43"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="43"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat44"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="44"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat45"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="45"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat46"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="46"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat47"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="47"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat48"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="48"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/seat49"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="49"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="213dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/linearLayout4"
+            android:layout_alignRight="@id/linearLayout4"
+            android:orientation="vertical"
+           >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/seat50"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="50"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat51"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="51"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat52"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="52"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat53"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="53"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat54"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="54"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat55"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="55"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat56"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="56"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/seat57"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="57"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat58"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="58"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat59"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="59"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat60"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="60"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat61"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="61"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat62"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="62"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat63"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="63"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="239dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="70dp"
+
+            android:layout_alignRight="@id/linearLayout6"
+            android:layout_below="@id/linearLayout6"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/seat64"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="64"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat65"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="65"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat66"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="66"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat67"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="67"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat68"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="68"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat69"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="69"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat70"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="70"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat71"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="71"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/seat72"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="72"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat73"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="73"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat74"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="74"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat75"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="75"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat76"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="76"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat77"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="77"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat78"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="78"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/seat79"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/imgbtn1"
+                    android:text="79"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="270dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/linearLayout7"
+        android:layout_alignRight="@id/linearLayout7"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/seat80"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="80"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat81"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="81"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat82"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="82"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat83"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="83"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat84"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="84"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat85"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="85"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat86"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="86"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat87"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="87"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/seat88"
+            android:layout_width="22dp"
+            android:layout_height="30dp"
+            android:background="@drawable/imgbtn1"
+            android:text="88"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="60dp"
+            android:layout_height="63dp"
+            android:layout_alignBottom="@+id/linearLayout3"
+            android:layout_toRightOf="@id/linearLayout3"
+            android:orientation="vertical"
+         >
+
+            <Button
+                android:id="@+id/seat90"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="90"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/seat89"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="265dp"
+                android:background="@drawable/imgbtn1"
+                android:text="89"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/seat72"
+                app:layout_constraintStart_toEndOf="@+id/seat12"
+                app:layout_constraintTop_toBottomOf="@+id/seat90" />
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="61dp"
+            android:layout_height="38dp"
+            android:layout_above="@+id/linearLayout9"
+            android:layout_toRightOf="@id/linearLayout3"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/seat92"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/imgbtn1"
+                android:text="92"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/seat91"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:background="@drawable/imgbtn1"
+                android:text="91"
+                android:visibility="visible" />
+
+            />
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/stateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/mySeatView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="사용자의 자리 : "
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

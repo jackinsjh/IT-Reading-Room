@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "255638629918",
+    "firebase_url": "https://readingroom-db904.firebaseio.com",
+    "project_id": "readingroom-db904",
+    "storage_bucket": "readingroom-db904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255638629918:android:72faa691226e0f86",
+        "android_client_info": {
+          "package_name": "com.example.readingroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255638629918-ot7rbqrt8vcr0a65pgsv0r762h70gn95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0E8RJlD3_C2W1aCCJDFWmtT51GICT1zE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255638629918-ot7rbqrt8vcr0a65pgsv0r762h70gn95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255638629918:android:ef8d6993b8772044",
+        "android_client_info": {
+          "package_name": "com.example.se_tp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255638629918-ot7rbqrt8vcr0a65pgsv0r762h70gn95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0E8RJlD3_C2W1aCCJDFWmtT51GICT1zE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255638629918-ot7rbqrt8vcr0a65pgsv0r762h70gn95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
