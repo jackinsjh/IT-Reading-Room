@@ -1,18 +1,15 @@
 package com.example.se_tp;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import pl.polidea.view.ZoomView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,20 +28,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 
-/*
-사용자 UI와 XML, 코드, DB에서 자리 번호는 모두 1부터 시작함. (0부터 시작이 아닌)
- */
-
-
 public class MainActivity extends Activity implements View.OnClickListener{
 
     public int mySeat=-1;
-    public int myState=0;
+    public int myState=1;
     public String myID="rjsj19951";
-    public Button[] seatBtn = new Button[93]; // 인덱스 0 미사용
+    public Button[] seatBtn = new Button[93]; // Total Seat is 92, and it is 1 ~ 92 , 0 is not used
     Handler handler = new Handler();
     TextView txtview;
-    public int[] seatState = new int[93];// 0 = 초기화 , 1 = 공석 , 2= 자리있음,3 = 공석 대기 , 인덱스 0 미사용
+    public int[] seatState = new int[93];// state 1 : empty , 2 : Occupy 3: Waiting empty
     public ArrayList<String> msgNum;
     public int selBtn=-1;
     public int beforeBtn=-1;
@@ -58,27 +50,30 @@ public class MainActivity extends Activity implements View.OnClickListener{
     PrintWriter out;
 
 
-    public FirebaseDatabase database; // 데이터베이스 객체
-    public DatabaseReference[] seatRef = new DatabaseReference[93]; // 각각의 seat 속성에 대한 DB 링크, 인덱스 0 미사용
+    public FirebaseDatabase database; // Firebase object
+    public DatabaseReference[] seatRef = new DatabaseReference[93]; // it link DB form seat data simultaneously, index 0 isn't used
 
 
-
-
+    //description : When view 'activity_main' is start, this cord is start
+    // input : Bundle of before state
+    // output : null
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int target;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*Intent intent=getIntent();
-        Bundle bundle1=intent.getExtras();
-        myID=bundle1.getString("userid");*/
-        Log.d("confirm1","here1");
+        Intent home = getIntent();
+        myID = home.getExtras().getString("userid");
+        txtview = (TextView)findViewById(R.id.mySeatView);
+        txtview.setText("사용자의 자리 : "+ "    번 " +"\n 아이디 : " + myID);
+
+        // it check bluetooth adapter is enable
          if(!mBluetoothAdapter.isEnabled()){
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }else {}
 
-        //server
+        //it connect server
         String macAddress = getMACAddress("wlan0");
         getmac = new StringTokenizer(macAddress, ":");
         Log.d("confirm1","here1");
@@ -86,87 +81,69 @@ public class MainActivity extends Activity implements View.OnClickListener{
             unit = getmac.nextToken();
             bluemac = bluemac + unit + ":";
         }
-        /*char makemac[]=getmac.nextToken().toCharArray();
-        makemac[1]=(char)(int)(makemac[1]+1);
-        String make=""+makemac;*/
+
         String t=getmac.nextToken();
         int k=Integer.parseInt(t);
         k=k-1;
         bluemac=bluemac+k;
-        Log.d("confirm1",bluemac);
-        Log.d("confirm1","here1-2");
-        Log.d("confirm1","here1-2");
-        //bluemac = bluemac + make;
-        //Log.d("confirm1 bluemac",bluemac);
+
         client C = new client();
         C.start();
 
-        // 테스트용
+
 
         msgNum = new ArrayList<String>();
-
+        // initialize the seat State
         for(int i=1; i <= 92; i++){
-            seatState[i] = 1;// 초기화
+            seatState[i] = 1;// all is empty at start
         }
         createButton();
         txtview = (TextView)findViewById(R.id.mySeatView);
 
-        msgNum.add("안쓰는 0번 인덱스"); // msgNum 의 0번 인덱스 무효화 (1번부터 시작하도록)
+        msgNum.add("안쓰는 0번 인덱스");
+        // it allocate the realtime DB listener
         for(int i=1; i <= 92; i++){
             seatBtn[i].setTag(i);
             seatBtn[i].setOnClickListener(this);
             msgNum.add((i) + "번 자리입니다.");
         }
-        Log.d("confirm1","here1-2wadadwaq");
+        // obtain Firebase instance
+        database = FirebaseDatabase.getInstance();
 
 
-
-
-
-
-
-        database = FirebaseDatabase.getInstance(); // 파이어베이스 인스턴스 얻기
-
-
-        // 각각 파이어베이스의 시트들마다
+        // 1~92 seat data receive
         for (int i = 1; i <= 92; i++) {
-            // 시트 속성 링크 얻기
+            // get seat reference link
             seatRef[i] = database.getReference("seat" + Integer.toString(i));
 
-            Log.d("FBListener", seatRef[i].getKey());
-
-
-            // 값 변경시의 리스너 설정
+            // LIstener
             seatRef[i].addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    String value = dataSnapshot.getValue(String.class); // 시트 내의 String 값
-                    String key = dataSnapshot.getKey(); // 시트 명 (seat5 이런거)
-                    Log.d("FBListener", "from FB snapshot key : " + key);
-                    Log.d("FBListener", "from FB snapshot value : " + value);
+                    String value = dataSnapshot.getValue(String.class); // String value is data form DB
+                    String key = dataSnapshot.getKey(); // get Key form DB
 
-
-                    int thisSeatNum = Integer.valueOf(key.substring(4)); // 현재 작업중인 시트의 번호
-                    // 시트 버튼 객체 얻어오기
+                    int thisSeatNum = Integer.valueOf(key.substring(4)); // Current Seat Number
+                    // Obtain object seat
                     String buttonID = "seat" + thisSeatNum;
                     int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                     seatBtn[thisSeatNum] = ((Button) findViewById((resID)));
 
-                    // 만약 공석이라면 공석으로 버튼 색 변경
+                    // if seat state is empty, it set button image color1
                     if (value.substring(0, 1).equals("1"))
                     {
                         seatBtn[thisSeatNum].setBackgroundResource(R.drawable.imgbtn1);
                         seatState[thisSeatNum] = 1;
                     }
-                    // 만약 사용중이라면 사용중으로 버튼 색 변경
+                    // if seat state is occupy, it set button image color2
                     else if (value.substring(0, 1).equals("2"))
                     {
                         seatBtn[thisSeatNum].setBackgroundResource(R.drawable.imgbtn2);
                         seatState[thisSeatNum] = 2;
                     }
-                    // 만약 공석대기중이라면 공석대기중으로 버튼 색 변경
+                    // if seat state is waiting empty, it set button image color3
                     else if (value.substring(0, 1).equals("3"))
                     {
                         seatBtn[thisSeatNum].setBackgroundResource(R.drawable.imgbtn3);
@@ -174,14 +151,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     }
                     else
                     {
-                        Log.e("FBListener", "unknown state number");
                     }
 
-                    Log.d("FBListener", "thisSeatNum : " + thisSeatNum + " resID : "
-                            + resID + " buttonID : " + buttonID);
 
 
 
+                    // It check seat owner's id
                     if (value.substring((value.indexOf("/") + 1)).equals(myID))
                     {
                         mySeat = thisSeatNum;
@@ -196,12 +171,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
                             Log.e("initializing", "invalid state");
                         }
 
-                        txtview.setText("사용자의 자리 : "+ (mySeat) + "번 ");
+                        txtview.setText("사용자의 자리 : "+ (mySeat) + "번 " +"\n 아이디 : " + myID);
+                    }
+                    else{
+
                     }
 
                 }
 
-                // 정보 읽기 실패 시
+                // If it link is fail, it start
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     // Failed to read value
@@ -212,7 +190,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         }
     }
-    //client thread
+
+    //description : it is client Thread to check bluetooth
+    // input : null
+    // output : null
     private class client extends Thread {
         public void run() {
             try {
@@ -231,7 +212,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         }
     }
-    //server
+
+    //description : it get MAC address to check bluetooth
+    // input : null
+    // output : null
     public static String getMACAddress(String interfaceName) {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
@@ -251,77 +235,84 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return "";
     }
 
+
+    //description : it is onClick method to all button
+    // input : clicked button view
+    // output : null
     @Override
     public void onClick(View v)
     {
 
-        // 클릭된 뷰를 버튼으로 받아옴
         Button newButton = (Button) v;
-
-        // 향상된 for문을 사용, 클릭된 버튼을 찾아냄
+        // this 'for' find clicked button
         for(Button tempButton : seatBtn)
         {
-            // 클릭된 버튼을 찾았으면
+            // Find clicked button
             if(tempButton == newButton)
             {
-                // 위에서 저장한 버튼의 포지션을 태그로 가져옴
                 int position = (Integer)v.getTag();
                 Message msg = handler.obtainMessage();
-                msg.arg1 = position;// 숫자
+                msg.arg1 = position;// number of seat
                 selBtn = position;
                 handler.sendMessage(msg);// send message to handleMessage
-                // 태그로 가져온 포지션을 이용해 리스트에서 출력할 데이터를 꺼내서 토스트 메시지 출력
                 Toast.makeText(this, msgNum.get(position), Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+    //description : Handler class is used to install popUp
+    // input : null
+    // output : null
     public class Handler extends android.os.Handler {
-        public void handleMessage(Message msg){// 상태에 따라 팝업 or 선택 표시로 이미지 변경
-            if(beforeBtn == msg.arg1){// 더블 클릭 했을때 팝업 띄우기
-                if(seatState[msg.arg1] == 1){// 공석
+        // Receive messages
+        public void handleMessage(Message msg){
+            // it check button is double click
+            if(beforeBtn == msg.arg1){
+                // it check seat state is empty, and user's state is empty
+                if(seatState[msg.arg1] == 1 && myState ==1){
                     Intent intent = new Intent(MainActivity.this, requestPop.class);
                     intent.putExtra("seatNum", msg.arg1);
                     startActivityForResult(intent, 1);
                 }
-                else if((seatState[msg.arg1] == 2) && (mySeat == msg.arg1)){// 자리있음 ,퇴실
+                else if((seatState[msg.arg1] == 2) && (mySeat == msg.arg1)){// it check seat state is occupy, and it check that seat is  user's seat
                     Intent intent = new Intent(MainActivity.this, outPop.class);
                     intent.putExtra("seatNum", msg.arg1);
                     startActivityForResult(intent, 4);
                 }
-                else if((seatState[msg.arg1] == 2) && (mySeat != msg.arg1)){// 자리있음 ,신고
+                else if((seatState[msg.arg1] == 2) && (mySeat != msg.arg1)){//it check other occupied seat
                     Intent intent = new Intent(MainActivity.this, reportPop.class);
                     intent.putExtra("seatNum", msg.arg1);
                     startActivityForResult(intent, 2);
                 }
-                else if((seatState[msg.arg1] == 3) && (mySeat == msg.arg1)){// 공석대기
+                else if((seatState[msg.arg1] == 3) && (mySeat == msg.arg1)){// when waiting empty state button is clicked, it start
                     Intent intent = new Intent(MainActivity.this, waitingPop.class);
                     intent.putExtra("seatNum", msg.arg1);
                     startActivityForResult(intent, 3);
                 }
 
             }
-            else if(beforeBtn != -1) {//이전에 클릭했던 것이 있을때 이전꺼를 초기화 시킨다.
-                if(seatState[beforeBtn] == 1){ // 공석
+            else if(beforeBtn != -1) {//befeorBtn isn't empty , it start
+                if(seatState[beforeBtn] == 1){
                     seatBtn[beforeBtn].setBackgroundResource(R.drawable.imgbtn1);
 
                 }
-                else if(seatState[beforeBtn] == 2){ // 자리있음
+                else if(seatState[beforeBtn] == 2){
                     seatBtn[beforeBtn].setBackgroundResource(R.drawable.imgbtn2);
 
                 }
-                else if(seatState[beforeBtn] == 3){ // 공석 대기중
+                else if(seatState[beforeBtn] == 3){
                     seatBtn[beforeBtn].setBackgroundResource(R.drawable.imgbtn3);
 
                 }
-                if(seatState[msg.arg1] == 1){ // 공석
+                if(seatState[msg.arg1] == 1){
                     seatBtn[msg.arg1].setBackgroundResource(R.drawable.secbtn1);
 
                 }
-                else if(seatState[msg.arg1] == 2){ // 자리있음
+                else if(seatState[msg.arg1] == 2){
                     seatBtn[msg.arg1].setBackgroundResource(R.drawable.setbtn2);
 
                 }
-                else if(seatState[msg.arg1] == 3){ // 공석 대기중
+                else if(seatState[msg.arg1] == 3){
                     seatBtn[msg.arg1].setBackgroundResource(R.drawable.setbtn3);
 
                 }
@@ -336,7 +327,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    // seatBtn array 에 각 버튼들의 객체 얻어오기
+    //description : it allocate btn id to array
+    // input : null
+    // output : null
     public void createButton(){
         for(int i = 1; i <= 92; i++) {
             String buttonID = "seat" + i;
@@ -346,27 +339,25 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }// align by findVIewByID
 
+    //description : it receive message from pop up
+    // input : requsertcode separate popup, resultcode is ok and cancel, Intent data is message
+    // output : null
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String res="";
-        if(requestCode==1){// 신청
+        if(requestCode==1){// it is request pop up
             if(resultCode==RESULT_OK){
-                //데이터 받기
-                //result=seatnumber
-                //신청이 들어옴
+
                 int result = data.getIntExtra("seatNum",1);
                 getseat seat=new getseat(result);
-                Log.d("confirm1",""+result);
                 seat.start();
                 try {
                     seat.join();
                 }
                 catch(Exception e){}
-                Log.d("confirm1","sueccess finish get seat");
             }
         }
-        else if(requestCode==2){// 신고
+        else if(requestCode==2){//it is report pop up
             if(resultCode==RESULT_OK){
-                //데이터 받기
                 int result = data.getIntExtra("seatNum",1);
                 putreport report=new putreport(result);
                 report.start();
@@ -375,9 +366,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 catch(Exception e){}
             }
-        } else if(requestCode==3){// 복귀신고
+        } else if(requestCode==3){//it is comeback pop up
             if(resultCode==RESULT_OK){
-                //데이터 받기
                 int result = data.getIntExtra("seatNum",1);
                 returnseat returns = new returnseat(result);
                 returns.start();
@@ -386,28 +376,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 catch(Exception e){}
             }
-            /* 의미없음??
-            if(resultCode==RESULT_CANCELED){
-                //데이터 받기
 
-                int result = data.getIntExtra("seatNum",1);
-                seatBtn[result].setBackgroundResource(R.drawable.setbtn3);
-                seatState[result] = 3;
-
-            }*/
         }
-        else if(requestCode==4){// 퇴실
+        else if(requestCode==4){//it is out pop up
             if(resultCode==RESULT_OK){
-                //데이터 받기
                 int result = data.getIntExtra("seatNum",1);
                 seatRef[result].setValue("1/");
                 seatBtn[result].setBackgroundResource(R.drawable.secbtn1);
                 seatState[result] = 1;
                 mySeat = -1;
-                txtview.setText("사용자의 자리 : ");
+                myState=1;
+
+                txtview.setText("사용자의 자리 : "+ (mySeat) + "번 " +"\n 아이디 : " + myID);
             }
         }
     }
+
+    //description : send message that get seat
+    // input : null
+    // output : null
+
     private class getseat extends Thread {
         int result;
         public getseat(int k)
@@ -420,19 +408,25 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 Thread.sleep(1000);
             }
             catch(Exception e){}
+            //send message server
             out.println("getseat/"+result);
             try {
                 res = in.readLine();
                 Log.d("confirm1",res);
             }
             catch(Exception e){}
+            //if request is successed gui and state is changed
             if(res.compareTo("success")==1)
             {
                 seatBtn[result].setBackgroundResource(R.drawable.setbtn2);
-                seatState[result] = 2;
+                seatState[result] =2;
             }
         }
     }
+
+    //description : send message that report empty seat
+    // input : null
+    // output : null
     private class putreport extends Thread {
         int result;
         public putreport(int k)
@@ -450,6 +444,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 res = in.readLine();
             }
             catch(Exception e){}
+            //if request is successed gui and state is changed
             if(res.compareTo("success")==1)
             {
                 seatBtn[result].setBackgroundResource(R.drawable.setbtn3);
@@ -457,6 +452,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         }
     }
+    //description : send message that return the seat
+    // input : null
+    // output : null
     private class returnseat extends Thread {
         int result;
 
@@ -472,22 +470,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
             seatBtn[result].setBackgroundResource(R.drawable.setbtn3);
             seatState[result] = 3;
-            out.println("report/" + result);
+            out.println("return/" + result);
             try {
                 res = in.readLine();
             } catch (Exception e) {
             }
+            //if request is successed gui and state is changed
             if (res.compareTo("success") == 1) {
                 seatBtn[result].setBackgroundResource(R.drawable.setbtn2);
                 seatState[result] = 2;
             }
         }
     }
-    /*
-    public void setSeatUI(){// seat State에 따라서 전체 gui 최신화
 
-    }
-    */
 
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">255638629918-ot7rbqrt8vcr0a65pgsv0r762h70gn95.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://readingroom-db904.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">255638629918</string>
+    <string name="google_api_key" translatable="false">AIzaSyA0E8RJlD3_C2W1aCCJDFWmtT51GICT1zE</string>
+    <string name="google_app_id" translatable="false">1:255638629918:android:ef8d6993b8772044</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA0E8RJlD3_C2W1aCCJDFWmtT51GICT1zE</string>
+    <string name="google_storage_bucket" translatable="false">readingroom-db904.appspot.com</string>
+    <string name="project_id" translatable="false">readingroom-db904</string>
+</resources>
