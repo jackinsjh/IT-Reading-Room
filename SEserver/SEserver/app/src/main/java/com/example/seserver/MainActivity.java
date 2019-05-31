@@ -42,16 +42,19 @@ public class MainActivity extends AppCompatActivity {
   String timer_seat="";
   String[] targetseat=new String[93];
   int count=0;
+  //bluetooth setting
   BluetoothAdapter mBluetoothAdapter;
   ArrayList<String> arr=new ArrayList<String>();
 
   FirebaseDatabase database;
   DatabaseReference[] seatRef;
-
+  //description : when program created, it start
+  //input : bundle of before state
+  //output : null
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
-    database = FirebaseDatabase.getInstance(); // 파이어베이스 인스턴스 얻기
+    database = FirebaseDatabase.getInstance(); // firebase instance
 
     seatRef = new DatabaseReference[93];
 
@@ -59,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
       targetseat[i]="";
     }
     for (int i  = 1; i <= 92; i++) {
-      // 시트 속성 링크 얻기
+      // acquire link
       seatRef[i] = database.getReference("seat" + Integer.toString(i));
       seatRef[i].addValueEventListener(new ValueEventListener() {
+        //real time database setting
+        //input: data
+        //output: null
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
           String value = dataSnapshot.getValue(String.class);
@@ -72,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
           int num=Integer.parseInt(seatnum);
           targetseat[num]=value;
         }
+        //description: announce database fail
+        //input : databaseerror
+        //output: null
         @Override
         public void onCancelled(DatabaseError databaseError) {
           // Failed to read value
@@ -82,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
     }
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    //gain GPS authority
     ActivityCompat.requestPermissions(this,
         new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION}, 10);
+    //bluetooth adapter declare
     mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
     registerReceiver(mReceiver, filter);
@@ -92,28 +103,36 @@ public class MainActivity extends AppCompatActivity {
     new servermain().start();
     new timerstart().start();
   }
-  private final BroadcastReceiver mReceiver = new BroadcastReceiver() { //각각의 디바이스로부터 정보를 받으려면 만들어야함
+  //description : get bluetooth of each device
+  //input : null
+  //output : null
+  private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
       String action = intent.getAction();
       if(BluetoothDevice.ACTION_FOUND.equals(action)){
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
         arr.add(device.getAddress());
-        Log.d("confirm1",device.getAddress());
       }
     }
   };
+  // description : make timer thread
+  // input : null
+  // output : null
   private class timerstart extends Thread{
     public void run(){
       while(true){
-      if(timer_check==1)
-      {
-        new timer(timer_seat,timer_id).start();
-        timer_check=0;
+        if(timer_check==1)
+        {
+          new timer(timer_seat,timer_id).start();
+          timer_check=0;
+        }
       }
     }
-    }
   }
+  // description : server trhead
+  // input : null
+  // output : null
   private class server extends Thread{
     private Socket socket;
     private String id;
@@ -126,13 +145,15 @@ public class MainActivity extends AppCompatActivity {
       this.socket=socket;
     }
     public void run(){
+      //setting the output,input stream
+      //setting user's id and mac address
       try {
         in = new BufferedReader(new InputStreamReader(
             socket.getInputStream()));
         out=new PrintWriter(socket.getOutputStream(),true);
         Log.d("confirm1","server");
         id=in.readLine();
-        Log.d("confirm1",id);
+        Log.d("confirm1 ididid",id);
         if(id==null)
           return;
         st=new StringTokenizer(id,"/");
@@ -148,19 +169,23 @@ public class MainActivity extends AppCompatActivity {
             macset.put(putid,blueid);
           }
         }
+        //handle each client's message
         while(true)
         {
           String msg;
           int success=0;
+          //recognize client's message
           msg=in.readLine();
           Log.d("confirm1",msg);
+          //getseat message is arrive
           if(msg.startsWith("getseat"))
           {
             ArrayList<String> arr_check=new ArrayList<String>();
             st = new StringTokenizer(msg, "/");
             String a = st.nextToken();
             String seat = st.nextToken();
-            /*while(true){
+            //wait bluetooth array is updated
+            while(true){
               if(check==1){
                 for(int i=0;i<arr.size();i++){
                   arr_check.add(arr.get(i));
@@ -168,21 +193,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("confirm1","check");
                 break;
               }
-            }*/
-            /*for(int i=0;i<arr_check.size();i++){
-              Log.d("confirm1 bluetooth",arr_check.get(i));
-            }*/
-            Log.d("confirm1",blueid);
-            //if(arr_check.contains(blueid)) {
-              Log.d("confirm1","check1");
+            }
+            //confirm user is near here by blutooth
+            if(arr_check.contains(blueid)) {
               DatabaseReference myRef = database.getReference("seat" + seat);
               myRef.setValue("2/" + putid);
               out.println("success");
-            //}
-            /*else{
+            }
+            else{
               out.println("fail");
-            }*/
+            }
           }
+          //report messae is arrive
           if(msg.startsWith("report")){
             ArrayList<String> arr_check=new ArrayList<String>();
             st = new StringTokenizer(msg, "/");
@@ -191,21 +213,27 @@ public class MainActivity extends AppCompatActivity {
             DatabaseReference myRef = database.getReference("seat" + seat);
             String targetvalue=targetseat[Integer.parseInt(seat)];
             st = new StringTokenizer(targetvalue, "/");
+            Log.d("confirm1",targetvalue);
             a=st.nextToken();
             String targetid=st.nextToken();
-            /*while(true){
+            while(true){
               if(check==1){
                 for(int i=0;i<arr.size();i++){
                   arr_check.add(arr.get(i));
                 }
                 break;
               }
-            }*/
-            //if(arr_check.contains(blueid)){
-              if(arr_check.contains(macset.get(targetid))){
-                success=1;
+            }
+            //confirm reporter is near here and reported user isn't near here by bluetooth
+            if(arr_check.contains(blueid)){
+              try{
+                if(arr_check.contains(macset.get(targetid))){
+                  success=1;
+                }}
+              catch(Exception e){
               }
-            //}
+            }
+            //if report is successed
             if(success==1)
             {
               myRef.setValue("3/" + targetid);
@@ -218,42 +246,44 @@ public class MainActivity extends AppCompatActivity {
               out.println("fail");
             }
           }
+          //return message is arrived
           if(msg.startsWith("return")){
             ArrayList<String> arr_check=new ArrayList<String>();
-            /*while(true){
+            while(true){
               if(check==1){
                 for(int i=0;i<arr.size();i++){
                   arr_check.add(arr.get(i));
                 }
                 break;
               }
-            }*/
-            //if(arr_check.contains(blueid)) {
-              Log.d("confrim1","check2");
+            }
+            if(arr_check.contains(blueid)) {
               st = new StringTokenizer(msg, "/");
               String a = st.nextToken();
               String seat = st.nextToken();
               DatabaseReference myRef = database.getReference("seat" + seat);
               myRef.setValue("2/" + putid);
               out.println("success");
-            //}
-            //else{
-              //out.println("fail");
-            //}
+            }
+            else{
+              out.println("fail");
+            }
           }
         }
       }
       catch(Exception e){}
     }
   }
+  //definition : make each socket's thread
+  // input : null
+  // output : null
   private class servermain extends Thread{
     public void run(){
       try {
         Thread.sleep(3000);
-        Log.d("confirm1","servermaain");
         ServerSocket listener = new ServerSocket(PORT);
         while(true){
-        new server(listener.accept()).start();
+          new server(listener.accept()).start();
         }
       }
       catch(Exception e){
@@ -261,6 +291,9 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   }
+  // description : timer thread
+  // input : null
+  // output : null
   private class timer extends Thread{
     String seat="";
     String id="";
@@ -271,7 +304,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void run(){
       try {
+        //timer setting
         Thread.sleep(1800000);
+        //when timer is expired confirm the seat that other person get it
         DatabaseReference myRef = database.getReference("seat" + seat);
         String targetvalue=targetseat[Integer.parseInt(seat)];
         StringTokenizer st = new StringTokenizer(targetvalue,"/");
@@ -286,17 +321,23 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   }
+  // description : find near device by bluetooth ( unpdates every 3 second)
+  // input : null
+  // output : null
   private class findbluetooth extends Thread{
     public void run(){
       while(true) {
         try {
-          Log.d("confirm1","afjalsjfkajsf");
+          //start to find device near here by bluetooth
           mBluetoothAdapter.startDiscovery();
-          Thread.sleep(10000);
+          Thread.sleep(3000);
+          //stop to find device
           mBluetoothAdapter.cancelDiscovery();
           check=1;
-          Thread.sleep(100);
+          //it is time that program compare list of device and requested device
+          Thread.sleep(300);
           check=0;
+          //delete all device's macaddress in arr
           arr.clear();
         } catch (Exception e) {
           Log.d("confirm1", "error!!!");
