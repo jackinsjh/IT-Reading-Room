@@ -8,12 +8,20 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+/**
+ * @brief -ReportPop Activity Java class
+ * @details - this class include Popup GUI Logic
+ *
+ */
 public class reportPop extends Activity {
     TextView txtText;
     int seatNum;
-    //description : When view 'activity_report_pop' is start, this cord is start
-    // input : Bundle of before state
-    // output : null
+    /**
+     * @brief - reportPop Activity Create method
+     * @details -When view 'activity_report_pop' is start, this cord is start
+     * @input -Bundle of before state
+     * @output- null
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +39,13 @@ public class reportPop extends Activity {
 
 
     }
-    //description : When user click report,it send message to MainActivity
-    // input : ReportPop view
-    // output : null
+
+    /**
+     * @brief - click report botton
+     * @details -When user click report,it send message to MainActivity
+     * @input -ReportPop view
+     * @output- null
+     */
     public void mOnReport(View v){
         //데이터 전달하기
         Intent intent = new Intent();
@@ -43,9 +55,13 @@ public class reportPop extends Activity {
         //액티비티(팝업) 닫기
         finish();
     }
-    //description : When user click cancel,it send message to MainActivity
-    // input : ReportPop view
-    // output : null
+
+    /**
+     * @brief - click cancle button
+     * @details -When user click cancel,it send message to MainActivity
+     * @input -ReportPop view
+     * @output- null
+     */
     public void mOnClose(View v){
         //데이터 전달하기
         Intent intent = new Intent();
@@ -55,9 +71,13 @@ public class reportPop extends Activity {
         //액티비티(팝업) 닫기
         finish();
     }
-    //description : When user click area of out of popup, it prevent touch.
-    // input : touch input
-    // output : null
+
+    /**
+     * @brief - prevent click to out of popup
+     * @details -When user click area of out of popup, it prevent touch.
+     * @input -touch input
+     * @output- null
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //바깥레이어 클릭시 안닫히게
@@ -69,6 +89,12 @@ public class reportPop extends Activity {
     //description : it prevent back button
     // input : null
     // output : null
+    /**
+     * @brief - on Back pressed
+     * @details -it prevent back button
+     * @input -null
+     * @output- null
+     */
     @Override
     public void onBackPressed() {
         //안드로이드 백버튼 막기

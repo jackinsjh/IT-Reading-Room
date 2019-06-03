@@ -31,7 +31,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * @mainpage Project: IT Reading Room
+ *
+ * <h2>Description</h2>
+ * App manage the Reading room of IT University
+ * <hr>
+ *
+ * <h2>Github address</h2>
+ * https://github.com/jackinsjh/IT-Reading-Room
+ */
 
+/**
+ * @package com.example.server
+ * @brief - server check bluetooth between uesrs. And Network checked.
+ *
+ */
+
+/**
+ * @brief -mainActivity Java class
+ * @details - this class  is network with firebase and client
+ */
 public class MainActivity extends AppCompatActivity {
   private static HashMap<String, PrintWriter> ids=new HashMap<String,PrintWriter>();
   private static HashMap<String,String>macset=new HashMap<String,String>();
@@ -48,9 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
   FirebaseDatabase database;
   DatabaseReference[] seatRef;
-  //description : when program created, it start
-  //input : bundle of before state
-  //output : null
+
+  /**
+   * @details -   when program created, it start
+   * @input -Bundle of before state
+   * @output- null
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
@@ -116,9 +139,12 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   };
-  // description : make timer thread
-  // input : null
-  // output : null
+
+  /**
+   * @details -   make timer thread
+   * @input -null
+   * @output- null
+   */
   private class timerstart extends Thread{
     public void run(){
       while(true){
@@ -130,9 +156,12 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   }
-  // description : server trhead
-  // input : null
-  // output : null
+
+  /**
+   * @details -   server trhead
+   * @input -null
+   * @output- null
+   */
   private class server extends Thread{
     private Socket socket;
     private String id;
@@ -274,9 +303,12 @@ public class MainActivity extends AppCompatActivity {
       catch(Exception e){}
     }
   }
-  //definition : make each socket's thread
-  // input : null
-  // output : null
+
+  /**
+   * @details -   make each socket's thread
+   * @input -null
+   * @output- null
+   */
   private class servermain extends Thread{
     public void run(){
       try {
@@ -291,9 +323,12 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   }
-  // description : timer thread
-  // input : null
-  // output : null
+
+  /**
+   * @details -  timer thread
+   * @input -null
+   * @output- null
+   */
   private class timer extends Thread{
     String seat="";
     String id="";
@@ -321,9 +356,12 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   }
-  // description : find near device by bluetooth ( unpdates every 3 second)
-  // input : null
-  // output : null
+
+  /**
+   * @details - find near device by bluetooth ( unpdates every 3 second)
+   * @input -null
+   * @output- null
+   */
   private class findbluetooth extends Thread{
     public void run(){
       while(true) {

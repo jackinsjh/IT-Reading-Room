@@ -8,12 +8,23 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+/**
+ * @brief -waitingPop Activity Java class
+ * @details - this class include Popup GUI Logic
+ *
+ */
 public class waitingPop extends Activity {
     TextView txtText;
     int seatNum;
     //description : When view 'activity_waiting_pop' is start, this cord is start
     // input : Bundle of before state
     // output : null
+    /**
+     * @brief - waiting Activity Create method
+     * @details -When view 'activity_waiting_pop' is start, this cord is start
+     * @input -Bundle of before state
+     * @output- null
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +42,27 @@ public class waitingPop extends Activity {
 
 
     }
-    //description : When user click comeBack,it send message to MainActivity
-    // input : ReportPop view
-    // output : null
+
+
+    /**
+     * @brief - click comback button
+     * @details -When user click comeBack,it send message to MainActivity
+     * @input -ReportPop view
+     * @output- null
+     */
     public void mOnComback(View v){
         Intent intent = new Intent();
         intent.putExtra("seatNum", seatNum);
         setResult(RESULT_OK, intent);
         finish();
     }
-    //description : When user click cancel,it send message to MainActivity
-    // input : ReportPop view
-    // output : null
+
+    /**
+     * @brief - click cancle button
+     * @details -When user click cancel,it send message to MainActivity
+     * @input -ReportPop view
+     * @output- null
+     */
     public void mOnClose(View v){
         //데이터 전달하기
         Intent intent = new Intent();
@@ -52,9 +72,12 @@ public class waitingPop extends Activity {
         //액티비티(팝업) 닫기
         finish();
     }
-    //description : When user click area of out of popup, it prevent touch.
-    // input : touch input
-    // output : null
+    /**
+     * @brief - prevent click to out of popup
+     * @details -When user click area of out of popup, it prevent touch.
+     * @input -touch input
+     * @output- null
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
@@ -62,9 +85,13 @@ public class waitingPop extends Activity {
         }
         return true;
     }
-    //description : it prevent back button
-    // input : null
-    // output : null
+
+    /**
+     * @brief - on Back pressed
+     * @details -it prevent back button
+     * @input -null
+     * @output- null
+     */
     @Override
     public void onBackPressed() {
         return;

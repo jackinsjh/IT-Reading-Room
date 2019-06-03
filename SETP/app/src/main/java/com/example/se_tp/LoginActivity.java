@@ -15,13 +15,23 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+/**
+ * @brief -Login Activity Java class
+ * @details - this class include GUI and server connect code.
+ *
+ */
 public class LoginActivity extends AppCompatActivity {
     public int check=0;
     public int login_finish=0;
     String userid;
-    //description : When view 'activity_login' is start, this cord is start. And it is start Activity
-    // input : Bundle of before state
-    // output : null
+
+    /**
+     * @brief -Login Activity Create method
+     * @details -  When view 'activity_login' is start, this cord is start. And it is start Activity
+     * @input -Bundle of before state
+     * @output- null
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +59,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    //description : When user click 'log-in' button, it starts. this check id and pw with Gachon Cyber Campus.
-    // input : null
-    // output : null
+
+    /**
+     * @brief - Login() method sign Gachon Cyber Campus
+     * @details -  When user click 'log-in' button, it starts. this check id and pw with Gachon Cyber Campus.
+     * @input -null
+     * @output- null
+     */
     private void Login() {
         //final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "", "로그인을 시도하는 중입니다.");
         Thread thread = new Thread(new Runnable() {

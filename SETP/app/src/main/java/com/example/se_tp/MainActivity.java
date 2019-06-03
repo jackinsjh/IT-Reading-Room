@@ -26,17 +26,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
+/**
+ * @package com.example.se_tp
+ * @brief - SETP is client app of IT Reading Room
+ * @details - This package is client part of program.
+ */
 
-
+/**
+ * @brief -mainActivity Java class
+ * @details - this class include Reading Room GUi logic and network with firebase and server
+ *
+ */
 public class MainActivity extends Activity implements View.OnClickListener{
 
     public int mySeat=-1;
     public int myState=1;
     public String myID="rjsj19951";
+
     public Button[] seatBtn = new Button[93]; // Total Seat is 92, and it is 1 ~ 92 , 0 is not used
     Handler handler = new Handler();
     TextView txtview;
-    public int[] seatState = new int[93];// state 1 : empty , 2 : Occupy 3: Waiting empty
+    /**
+     * @details - state 1 : empty , 2 : Occupy 3: Waiting empty
+     */
+    public int[] seatState = new int[93];//
     public ArrayList<String> msgNum;
     public int selBtn=-1;
     public int beforeBtn=-1;
@@ -49,14 +62,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
     BufferedReader in;
     PrintWriter out;
 
-
+    /**
+     * @details - Firebase object
+     */
     public FirebaseDatabase database; // Firebase object
-    public DatabaseReference[] seatRef = new DatabaseReference[93]; // it link DB form seat data simultaneously, index 0 isn't used
+
+    /**
+     * @details -  it link DB form seat data simultaneously, index 0 isn't used
+     */
+    public DatabaseReference[] seatRef = new DatabaseReference[93]; //
 
 
-    //description : When view 'activity_main' is start, this cord is start
-    // input : Bundle of before state
-    // output : null
+
+    /**
+     * @brief -mainActivity Create method
+     * @details -  When view 'activity_main' is start, this cord is start
+     * @input -Bundle of before state
+     * @output- null
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int target;
@@ -180,6 +203,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
 
                 // If it link is fail, it start
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     // Failed to read value
@@ -191,9 +215,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : it is client Thread to check bluetooth
-    // input : null
-    // output : null
+
+    /**
+     * @details -  it is client Thread to check bluetooth
+     * @input -null
+     * @output- null
+     */
     private class client extends Thread {
         public void run() {
             try {
@@ -213,9 +240,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : it get MAC address to check bluetooth
-    // input : null
-    // output : null
+
+    /**
+     * @details -  it get MAC address to check bluetooth
+     * @input -null
+     * @output- null
+     */
     public static String getMACAddress(String interfaceName) {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
@@ -236,9 +266,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
 
-    //description : it is onClick method to all button
-    // input : clicked button view
-    // output : null
+    /**
+     * @details -  it is onClick method to all button
+     * @input -clicked button view
+     * @output- null
+     */
     @Override
     public void onClick(View v)
     {
@@ -260,9 +292,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : Handler class is used to install popUp
-    // input : null
-    // output : null
+
+    /**
+     * @details -  Handler class is used to install popUp
+     * @input -null
+     * @output- null
+     */
     public class Handler extends android.os.Handler {
         // Receive messages
         public void handleMessage(Message msg){
@@ -327,9 +362,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : it allocate btn id to array
-    // input : null
-    // output : null
+    /**
+     * @details -  it allocate btn id to array
+     * @input -null
+     * @output- null
+     */
     public void createButton(){
         for(int i = 1; i <= 92; i++) {
             String buttonID = "seat" + i;
@@ -339,9 +376,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }// align by findVIewByID
 
-    //description : it receive message from pop up
-    // input : requsertcode separate popup, resultcode is ok and cancel, Intent data is message
-    // output : null
+
+    /**
+     * @details - it receive message from pop up
+     * @input -requsertcode separate popup, resultcode is ok and cancel, Intent data is message
+     * @output- null
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String res="";
         if(requestCode==1){// it is request pop up
@@ -392,10 +432,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : send message that get seat
-    // input : null
-    // output : null
 
+    /**
+     * @details - send message that get seat
+     * @input -null
+     * @output- null
+     */
     private class getseat extends Thread {
         int result;
         public getseat(int k)
@@ -424,9 +466,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    //description : send message that report empty seat
-    // input : null
-    // output : null
+    /**
+     * @details - send message that report empty seat
+     * @input -null
+     * @output- null
+     */
     private class putreport extends Thread {
         int result;
         public putreport(int k)
@@ -452,9 +496,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         }
     }
-    //description : send message that return the seat
-    // input : null
-    // output : null
+
+    /**
+     * @details - send message that return the seat
+     * @input -null
+     * @output- null
+     */
     private class returnseat extends Thread {
         int result;
 
